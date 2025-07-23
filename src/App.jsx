@@ -32,8 +32,6 @@ function App() {
             <Route path="/place-order" element={<PlaceOrder />} />
             <Route path="/orders" element={<Orders />} />
         </Routes>
-        <p className='text-3xl justify-center text-center'>Clothing E-Commerce</p>
-
         <Footer />
     </div>
   )

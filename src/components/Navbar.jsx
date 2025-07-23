@@ -8,12 +8,13 @@ function Navbar() {
 
   const [visible, setVisible] = useState(false);
 
-
   return (
     <div className='flex items-center justify-between py-5 font-medium'>
 
         {/* My site logo - extreme top left */}
-        <img src={assets.logo_new} alt='test' className='w-20' />
+        <Link to='/' >
+            <img src={assets.logo_new} alt='test' className='w-20' />
+        </Link>
 
         {/* Navbar menu for >= 640px screens - middle */}
         <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
@@ -42,22 +43,20 @@ function Navbar() {
         <div className="flex items-center gap-6">
 
             {/* search icon */}
-            <img
-                onClick={() => {setShowSearch(true);}}
-                src={assets.search_icon}
-                alt=""
-                className="w-5 cursor-pointer "
-            />
+            <img onClick={() => {setShowSearch(true);}} src={assets.search_icon} alt="" className="w-5 cursor-pointer "/>
 
+            {/* <Link to="/login">Login</Link> */}
             {/* profile icon */}
             <div className="group relative">
-                <Link to="/login">
-                    <img
-                        src={assets.profile_icon}
-                        alt=""
-                        className="w-5 cursor-pointer"
-                    />
-                </Link>
+
+                <img src={assets.profile_icon}  alt="" className="w-5 cursor-pointer"/>
+                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                        <p className='cursor-pointer hover:text-black'>My Profile</p>
+                        <p className='cursor-pointer hover:text-black'>Orders</p>
+                        <p className='cursor-pointer hover:text-black'>Logout</p>
+                    </div>
+                </div>
             </div>
 
             {/* cart icon */}
@@ -72,8 +71,8 @@ function Navbar() {
             <img
                 src={assets.menu_icon}
                 alt=""
-                onClick={() => setVisible(!visible)} //visibility toggle (true/false))
-                className="w-5 cursor-pointer sm:hidden "
+                onClick={() => setVisible(true)}
+                className="w-5 cursor-pointer sm:hidden"
             />
         </div>
 

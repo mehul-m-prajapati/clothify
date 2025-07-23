@@ -73,12 +73,16 @@ import contact_img from './contact_img.png';
 import razorpay_logo from './razorpay_logo.png';
 import stripe_logo from './stripe_logo.png';
 import cross_icon from './cross_icon.png';
+import hero_model from './hero_model.jpg';
+import woman from './woman.jpg';
 
 export const assets = {
   logo,
   logo_new,
   hero_img,
   cart_icon,
+  hero_model,
+  woman,
   dropdown_icon,
   exchange_icon,
   profile_icon,
