@@ -1,6 +1,7 @@
-import { createContext } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import { products } from "../assets/assets";
 import PropTypes from 'prop-types';
+import { useLocation } from "react-router-dom";
 
 
 export const ShopContext = createContext();
@@ -9,7 +10,17 @@ const ShopContextProvider = ({children}) => {
 
     const currency = '$';
     const delivery_fee = 10;
+    const [showSearch, setShowSearch] = useState(false);
+    const [search, setSearch] = useState('');
+    const location = useLocation();
 
+    useEffect(() => {
+        if (location.pathname.includes('collection') )
+            setShowSearch(true);
+        else
+            setShowSearch(false);
+
+    }, [location]);
 
     const addToCart = async () => {
 
@@ -30,6 +41,10 @@ const ShopContextProvider = ({children}) => {
 
     const contextValue = {
         products,
+        search,
+        setSearch,
+        showSearch,
+        setShowSearch,
         currency,
         delivery_fee,
         addToCart,

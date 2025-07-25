@@ -1,4 +1,5 @@
 import { assets } from '../assets/assets';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -26,12 +27,8 @@ const Footer = () => {
           <p className="text-xl font-medium mb-5">COMPANY</p>
 
           <ul className="flex flex-col flex-1 text-gray-600 cursor-pointer">
-            <li onClick={scrollToTop} className="mb-2">
-              Home
-            </li>
-            <li onClick={scrollToTop} className="mb-2">
-              About Us
-            </li>
+            <Link className="mb-2" onClick={scrollToTop} to='/'>Home</Link>
+            <Link className="mb-2" onClick={scrollToTop} to='/about'>About Us</Link>
             <li onClick={scrollToTop} className="mb-2">
               Delivery
             </li>
