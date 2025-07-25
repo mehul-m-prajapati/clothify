@@ -15,7 +15,7 @@ const Footer = () => {
       <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm ">
 
         <div className="">
-          <img src={assets.logo_new} alt="" className="mb-5 w-32 " />
+          <img src={assets.logo_footer} alt="" className="mb-5 w-32 " />
           <p className="w-full sm:w-2/3 text-gray-600">
             Shop with Forever and experience the convenience of online shopping
             like never before.

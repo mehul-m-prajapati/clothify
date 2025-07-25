@@ -55,6 +55,7 @@ import p_img51 from './p_img51.png';
 import p_img52 from './p_img52.png';
 
 import logo from './logo.png';
+import logo_footer from "./logo_footer.png"
 import logo_new from "./logo_new.png"
 import hero_img from './hero_img.png';
 import cart_icon from './cart_icon.png';
@@ -79,6 +80,7 @@ import woman from './woman.jpg';
 export const assets = {
   logo,
   logo_new,
+  logo_footer,
   hero_img,
   cart_icon,
   hero_model,
