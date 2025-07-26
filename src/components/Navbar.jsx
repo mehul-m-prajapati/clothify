@@ -15,7 +15,7 @@ function Navbar() {
 
         {/* My site logo - extreme top left */}
         <Link to='/' >
-            <img src={assets.logo_new} alt='test' className='w-20' />
+            <img src={assets.logo_footer} alt='test' className='w-25' />
         </Link>
 
         {/* Navbar menu for >= 640px screens - middle */}
