@@ -12,6 +12,7 @@ import Orders from './pages/Orders';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer';
 import SearchBar from './components/Searchbar.jsx';
+import ScrollToTop from './components/ScrollToTop.jsx';
 import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
         <ToastContainer />
         <Navbar />
         <SearchBar />
-
+        <ScrollToTop />
+        
         <Routes>
             <Route path='/' element={<Home />} />
             <Route path="/collection" element={<Collection />} />
