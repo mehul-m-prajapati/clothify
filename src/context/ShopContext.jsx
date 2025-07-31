@@ -76,11 +76,30 @@ const ShopContextProvider = ({children}) => {
         return totalCount;
     }
 
-    const updateQuantity = async() => {
-
+    const updateQuantity = async(itemId, size, quantity) => {
+        let cartData = structuredClone(cartItems);
+        cartData[itemId][size] = quantity;
+        setCartItems(cartData);
     }
 
     const getCartAmount = () => {
+        let totalAmount = 0;
+
+        for (const item in cartItems) {
+            const productInfo = products.find(p => p._id === item);
+
+            for (const itemSize in cartItems[item]) {
+                try {
+                    const itemQuantity = cartItems[item][itemSize];
+                    if (itemQuantity > 0)
+                        totalAmount += productInfo.price * itemQuantity;
+                } catch (error) {
+                    console.log('error', error);
+                }
+            }
+        }
+
+        return totalAmount;
     }
 
     const contextValue = {
