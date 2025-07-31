@@ -15,13 +15,14 @@ const ShopContextProvider = ({children}) => {
     const [search, setSearch] = useState('');
     const location = useLocation();
     const [cartItems, setCartItems] = useState({});
+    const [orders, setOrders] = useState([]); // New state to hold orders
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (location.pathname.includes('collection') )
             setShowSearch(true);
         else
             setShowSearch(false);
-
     }, [location]);
 
     const addToCart = async (itemId, size) => {
@@ -55,6 +56,24 @@ const ShopContextProvider = ({children}) => {
     };
 
     const addOrder = () => {
+
+        let tempOrders = structuredClone(orders);
+        let newOrder = [];
+
+        for (const item in cartItems) {
+            for (const size in cartItems[item]) {
+
+                if (cartItems[item][size] > 0) {
+                    newOrder.push({
+                        _id: item,
+                        size,
+                        quantity: cartItems[item][size],
+                    });
+                }
+            }
+        }
+        setOrders([...tempOrders, ...newOrder]);
+        //setCartItems({}); // Clear cart after placing the order
     }
 
     const getCartCount = () => {
@@ -107,6 +126,7 @@ const ShopContextProvider = ({children}) => {
         currency,
         delivery_fee,
         search,
+        orders,
         setSearch,
         showSearch,
         setShowSearch,
@@ -116,6 +136,7 @@ const ShopContextProvider = ({children}) => {
         getCartAmount,
         getCartCount,
         updateQuantity,
+        navigate,
     }
 
     return (
