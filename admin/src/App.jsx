@@ -27,7 +27,7 @@ function App() {
         <ToastContainer />
         {token === '' ? (<Login setToken={setToken} />) : (
             <>
-                <Navbar />
+                <Navbar setToken={setToken} />
                 <hr />
                 <div className='flex w-full'>
                     <Sidebar />
