@@ -15,7 +15,7 @@ import userAuth from '../middlewares/userAuth.js';
 const orderRouter = express.Router();
 
 // Admin features
-orderRouter.get('/list', adminAuth, getAllOrders);
+orderRouter.post('/list', adminAuth, getAllOrders);
 orderRouter.post('/status', adminAuth, updateOrderStatus);
 
 // Place order / Payment features

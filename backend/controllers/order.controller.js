@@ -2,7 +2,12 @@
 
 export const getAllOrders = async (req, res) => {
     try {
+        const orders = [];
 
+        console.log('req received');
+
+
+        return res.status(200).json({message: 'status: ok', orders});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
