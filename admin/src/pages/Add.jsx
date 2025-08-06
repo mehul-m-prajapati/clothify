@@ -3,11 +3,13 @@ import { assets } from '../assets/assets';
 import axios from 'axios';
 import { backendUrl } from '../App';
 import { toast } from 'react-toastify';
+import {ClipLoader} from 'react-spinners'
 
 const Add = ({ token }) => {
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
 
+  const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Men');
@@ -18,6 +20,7 @@ const Add = ({ token }) => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -43,13 +46,13 @@ const Add = ({ token }) => {
       if (response.status === 201) {
         toast.success(response.data.message);
 
+        // reset input fields
         setName('');
         setDescription('');
         setPrice('');
         setSizes([]);
         setImage1(false);
         setImage2(false);
-
       }
       else {
         toast.error(response.data.message);
@@ -57,6 +60,9 @@ const Add = ({ token }) => {
     }
     catch (error) {
       toast.error(error.response.data.message);
+    }
+    finally {
+        setLoading(false);
     }
   };
 
@@ -194,17 +200,13 @@ const Add = ({ token }) => {
 
           <div
             onClick={() =>
-              setSizes((prev) =>
-                prev.includes('M') ? prev.filter((size) => size !== 'M') : [...prev, 'M']
-              )
+              setSizes((prev) => prev.includes('M') ? prev.filter((size) => size !== 'M') : [...prev, 'M'])
             }
           >
             <p
               className={`${
-                sizes.includes('M') ? 'bg-pink-100' : 'bg-slate-200'
-              }  px-3 py-1 cursor-pointer`}
-            >
-              M
+                sizes.includes('M') ? 'bg-pink-100' : 'bg-slate-200'}  px-3 py-1 cursor-pointer`}
+            >M
             </p>
           </div>
 
@@ -279,9 +281,10 @@ const Add = ({ token }) => {
 
       {/* Submit Button */}
       <button
+        disabled={loading}
         type='submit'
         className='bg-gray-800 text-white px-5 py-2 sm:px-7 sm:py-2 rounded-full text-xs sm:text-sm cursor-pointer'
-      >Add Product
+      >{loading ? <ClipLoader size={20} color="#ffffff" /> : "Add Product"}
       </button>
     </form>
   );

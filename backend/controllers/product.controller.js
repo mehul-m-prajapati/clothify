@@ -1,5 +1,5 @@
 import ProductModel from '../models/product.model.js'
-import {v2 as cloudinary} from 'cloudinary'
+import {uploadToCloudinary, deleteFromCloudinaryByUrl} from '../config/cloudinary.js'
 
 const addProduct = async (req, res) => {
     try {
@@ -27,7 +27,7 @@ const addProduct = async (req, res) => {
 
         let imgUrls = await Promise.all(
             images.map(async (image) => {
-                const result = await cloudinary.uploader.upload(image.path, {resource_type: 'image'});
+                const result = await uploadToCloudinary(image.path);
                 return result.secure_url;
             })
         )
@@ -71,6 +71,8 @@ const removeProduct = async (req, res) => {
         const product = await ProductModel.findByIdAndDelete(id);
         if (!product)
             return res.status(404).json({message: 'Product not found'});
+
+        await deleteFromCloudinaryByUrl(product.image[0]);
 
         return res.status(200).json({message: 'Product removed successfully'});
 

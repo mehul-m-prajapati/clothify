@@ -1,13 +1,13 @@
-
+import OrderModel from '../models/order.model.js'
+import UserModel from '../models/user.model.js'
+import stripe from 'stripe'
+import razorpay from 'razorpay'
 
 export const getAllOrders = async (req, res) => {
     try {
-        const orders = [];
+        const orders = OrderModel.find({});
 
-        console.log('req received');
-
-
-        return res.status(200).json({message: 'status: ok', orders});
+        return res.status(200).json({message: 'Fetched all orders', orders});
     } catch (error) {
         res.status(500).json({message: error.message});
     }
@@ -15,6 +15,8 @@ export const getAllOrders = async (req, res) => {
 
 export const getUserOrders = async (req, res) => {
     try {
+
+        const userOrders = OrderModel.find()
 
     } catch (error) {
         res.status(500).json({message: error.message});
