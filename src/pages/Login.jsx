@@ -1,15 +1,59 @@
+import { useContext, useEffect } from 'react';
 import { useState } from 'react';
+import { ShopContext } from '../context/ShopContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-  const [currentState, setCurrentState] = useState('Sign Up');
+  const { token, setToken, navigate, backendUrl } = useContext(ShopContext);
+  const [currentState, setCurrentState] = useState('Login');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [passwd, setPasswd] = useState('');
 
-  const onSubmmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    try {
+        if (currentState === 'Sign Up') {
+
+            const resp = await axios.post(backendUrl + '/api/user/register', {name, email, password: passwd});
+
+            if (resp.status === 201) {
+                //setToken(resp.data.data.token);
+                //localStorage.setItem('token', resp.data.data.token);
+                toast.success('Sign Up Successful!');
+                setCurrentState('Login');
+                // reset
+                setEmail('');
+                setPasswd('');
+            }
+            else {
+                toast.error(resp.data.message);
+            }
+        }
+        else {
+
+            const resp = await axios.post(backendUrl + '/api/user/login', {email, password: passwd});
+
+            if (resp.status === 200) {
+                setToken(resp.data.data.token);
+                localStorage.setItem('token', resp.data.data.token);
+                toast.success('Log In Successful!');
+                navigate('/');
+            }
+            else {
+                toast.error(resp.data.message);
+            }
+        }
+    } catch (error) {
+        toast.error(error.response.data.message);
+    }
   };
 
   return (
     <form
-      onSubmit={onSubmmitHandler}
+      onSubmit={onSubmitHandler}
       className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800"
     >
         <div className="inline-flex items-center gap-2 mb-2 mt-10">
@@ -21,6 +65,8 @@ const Login = () => {
 
             {currentState === 'Sign Up' ? (
             <input
+                onChange={e => setName(e.target.value)}
+                value={name}
                 type="text"
                 className="w-Full px-3 py-2 border border-gray-880"
                 placeholder="Name"
@@ -29,12 +75,16 @@ const Login = () => {
             ) : null}
 
             <input
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 type="email"
                 className="w-Full px-3 py-2 border border-gray-880"
                 placeholder="Email"
                 required
             />
             <input
+                onChange={e => setPasswd(e.target.value)}
+                value={passwd}
                 type="password"
                 className="w-Full px-3 py-2 border border-gray-880"
                 placeholder="Password"
@@ -58,7 +108,7 @@ const Login = () => {
                 )}
             </div>
 
-            <button className="w-1/2 m-auto bg-black text-white px-8 py-2 mt-4 ">
+            <button className="w-1/2 m-auto bg-black text-white px-8 py-2 mt-4 cursor-pointer">
                 {currentState === 'Login' ? 'Sign In' : 'Sign Up'}
             </button>
         </div>

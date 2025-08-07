@@ -1,9 +1,10 @@
-import { createContext, useEffect, useReducer, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { products } from "../assets/assets";
 import PropTypes from 'prop-types';
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const ShopContext = createContext();
 
@@ -11,11 +12,16 @@ const ShopContextProvider = ({children}) => {
 
     const currency = '$';
     const delivery_fee = 10;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     const [showSearch, setShowSearch] = useState(false);
     const [search, setSearch] = useState('');
     const location = useLocation();
     const [cartItems, setCartItems] = useState({});
     const [orders, setOrders] = useState([]); // New state to hold orders
+    const [productsList, setProductsList] = useState([]);
+    const [token, setToken] = useState('');
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -54,6 +60,36 @@ const ShopContextProvider = ({children}) => {
 
         setCartItems(cartData);
     };
+
+    const getProductsData = async () => {
+        try {
+            const resp = await axios.get(backendUrl + '/api/product/list');
+
+            if (resp.status === 200)
+                setProductsList(resp.data.products);
+            else
+                toast.error(response.data.message);
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+
+    useEffect(() => {
+        getProductsData();
+    }, []);
+
+    useEffect(() => {
+
+        if (!token && localStorage.getItem('token')) {
+
+            console.log(localStorage.getItem('token'));
+
+            setToken(localStorage.getItem('token'));
+            //getUserCart(localStorage.getItem('token'));
+        }
+    }, []);
 
     const addOrder = () => {
 
@@ -127,6 +163,9 @@ const ShopContextProvider = ({children}) => {
         delivery_fee,
         search,
         orders,
+        token,
+        setToken,
+        backendUrl,
         setSearch,
         showSearch,
         setShowSearch,

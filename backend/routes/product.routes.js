@@ -15,6 +15,7 @@ productRouter.post('/add', adminAuth, upload.fields([
     {name: 'image1', maxCount: 1},
     {name: 'image2', maxCount: 1},
 ]), addProduct);
+
 productRouter.post('/remove', adminAuth, removeProduct);
 
 export default productRouter;
