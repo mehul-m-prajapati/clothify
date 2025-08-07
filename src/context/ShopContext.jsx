@@ -59,6 +59,15 @@ const ShopContextProvider = ({children}) => {
         }
 
         setCartItems(cartData);
+
+        // update in db
+        if (token) {
+            try {
+                const resp = await axios.post(backendUrl + '/api/cart/add', {itemId, size}, {headers: {token}});
+            } catch (error) {
+                toast.error(error.message);
+            }
+        }
     };
 
     const getProductsData = async () => {
@@ -76,18 +85,31 @@ const ShopContextProvider = ({children}) => {
         }
     }
 
+    const getUserCart = async (token) => {
+        try {
+
+            const resp = await axios.get(backendUrl + '/api/cart', {headers: {token}});
+
+            if (resp.status === 200)
+                console.log(resp.data.cartData);
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+
     useEffect(() => {
         getProductsData();
     }, []);
 
     useEffect(() => {
 
-        if (!token && localStorage.getItem('token')) {
-
-            console.log(localStorage.getItem('token'));
-
-            setToken(localStorage.getItem('token'));
-            //getUserCart(localStorage.getItem('token'));
+        if (!token) {
+            if (localStorage.getItem('token')) {
+                setToken(localStorage.getItem('token'));
+                //getUserCart(localStorage.getItem('token'));
+            }
         }
     }, []);
 
@@ -135,6 +157,16 @@ const ShopContextProvider = ({children}) => {
         let cartData = structuredClone(cartItems);
         cartData[itemId][size] = quantity;
         setCartItems(cartData);
+
+        // update in db
+        if (token) {
+            try {
+                const resp = await axios.post(backendUrl + '/api/cart/update', {itemId, size, quantity}, {headers: {token}});
+
+            } catch (error) {
+                toast.error(error.message);
+            }
+        }
     }
 
     const getCartAmount = () => {
@@ -170,6 +202,7 @@ const ShopContextProvider = ({children}) => {
         showSearch,
         setShowSearch,
         cartItems,
+        setCartItems,
         addToCart,
         addOrder,
         getCartAmount,
@@ -183,10 +216,7 @@ const ShopContextProvider = ({children}) => {
             {children}
         </ShopContext.Provider>
     )
-
 }
-
-
 
 ShopContextProvider.propTypes = {
   children: PropTypes.node.isRequired,

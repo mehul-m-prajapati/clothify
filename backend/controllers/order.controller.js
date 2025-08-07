@@ -46,6 +46,9 @@ export const placeOrderCOD = async (req, res) => {
 
         const order = await OrderModel.create(orderData);
 
+        // clear user cart
+        await UserModel.findByIdAndUpdate(userId, {cartData: {}});
+
         return res.status(200).json({message: 'Order placed successfully'})
 
     } catch (error) {

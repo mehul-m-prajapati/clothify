@@ -4,7 +4,7 @@ import userAuth from '../middlewares/userAuth.js'
 
 const cartRouter = express.Router();
 
-
+// /api/cart
 cartRouter.post('/add', userAuth, addToCart);
 cartRouter.post('/update', userAuth, updateCart);
 cartRouter.get('/', userAuth, getUserCart);
