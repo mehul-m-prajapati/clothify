@@ -54,9 +54,9 @@ function PlaceOrder() {
 
         const orderItems = [];
 
-        for (itemId in cartItems) {
+        for (const itemId in cartItems) {
 
-            for (size in cartItems[itemId]) {
+            for (const size in cartItems[itemId]) {
 
                 if (cartItems[itemId][size] > 0) {
 
@@ -92,10 +92,11 @@ function PlaceOrder() {
 
             // API calls for Stripe payment method
             case 'stripe': {
-                const resp = await axios.post(backendUrl + '/api/order/stripe', orderData, {headers: token});
+                const resp = await axios.post(backendUrl + '/api/order/stripe', orderData, {headers: {token}});
 
                 if (resp.status === 200) {
-
+                    const {sessionUrl} = resp.data;
+                    window.location.replace(sessionUrl);
                 }
                 else {
                     toast.error(resp.message);
@@ -110,7 +111,7 @@ function PlaceOrder() {
     }
     catch (error) {
         console.log(error);
-        toast.error(error.message);
+        toast.error(error.response.data.message);
     }
   }
 
@@ -132,10 +133,12 @@ function PlaceOrder() {
             onChange={onChangeHandler}
             value={formData.firstName}
             type="text"
+            required
             placeholder="First Name"
             className="border  border-gray-300 rounded py-1.5 px-3.5 w-full"
           />
           <input
+            required
             name='lastName'
             onChange={onChangeHandler}
             value={formData.lastName}
@@ -145,6 +148,7 @@ function PlaceOrder() {
           />
         </div>
         <input
+          required
           name='email'
           onChange={onChangeHandler}
           value={formData.email}
@@ -154,6 +158,7 @@ function PlaceOrder() {
         />
         <input
           name='street'
+          required
           onChange={onChangeHandler}
           value={formData.street}
           type="text"
@@ -163,6 +168,7 @@ function PlaceOrder() {
         <div className="flex flex-col sm:flex-row  gap-3">
           <input
             name='city'
+            required
             onChange={onChangeHandler}
             value={formData.city}
             type="text"
@@ -171,6 +177,7 @@ function PlaceOrder() {
           />
           <input
             name='state'
+            required
             onChange={onChangeHandler}
             value={formData.state}
             type="text"
@@ -181,6 +188,7 @@ function PlaceOrder() {
         <div className="flex flex-col sm:flex-row  gap-3">
           <input
             name='zipcode'
+            required
             onChange={onChangeHandler}
             value={formData.zipcode}
             type="text"
@@ -189,6 +197,7 @@ function PlaceOrder() {
           />
           <input
             name='country'
+            required
             onChange={onChangeHandler}
             value={formData.country}
             type="text"
@@ -198,6 +207,7 @@ function PlaceOrder() {
         </div>
         <input
           name='phone'
+          required
           onChange={onChangeHandler}
           value={formData.phone}
           type="number"

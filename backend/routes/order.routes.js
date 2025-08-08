@@ -12,6 +12,7 @@ import {
 import adminAuth from '../middlewares/adminAuth.js'
 import userAuth from '../middlewares/userAuth.js';
 
+// /api/order/
 const orderRouter = express.Router();
 
 // Admin features

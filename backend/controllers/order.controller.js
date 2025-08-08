@@ -1,12 +1,18 @@
 import OrderModel from '../models/order.model.js'
 import UserModel from '../models/user.model.js'
-import stripe from 'stripe'
-import razorpay from 'razorpay'
+import Stripe from 'stripe'
+import Razorpay from 'razorpay'
+
+const currency = 'inr';
+const deliveryCharge = 10;
+
+// Stripe payment configuration
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Get all order data for admin panel --> /api/order/list
 export const getAllOrders = async (req, res) => {
     try {
-        const orders = OrderModel.find({});
+        const orders = await OrderModel.find({});
 
         return res.status(200).json({message: 'Fetched all orders', orders});
     } catch (error) {
@@ -19,7 +25,7 @@ export const getUserOrders = async (req, res) => {
 
     try {
         const {userId} = req.body;
-        const orders = OrderModel.find({userId});
+        const orders = await OrderModel.find({userId});
 
         return res.status(200).json({message: 'Orders found', orders})
 
@@ -59,22 +65,83 @@ export const placeOrderCOD = async (req, res) => {
 export const placeOrderRazorpay = async (req, res) => {
     try {
 
+
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 }
 
+// Place order using Stripe method --> /api/order/stripe
 export const placeOrderStripe = async (req, res) => {
     try {
+        const { userId, items, amount, address } = req.body;
+        const { origin } = req.headers;
+
+        const orderData = {
+            userId,
+            items,
+            amount,
+            address,
+            paymentMethod: 'Stripe',
+            payment: false,
+            date: Date.now(),
+        };
+
+        const order = await OrderModel.create(orderData);
+
+        const line_items = items.map(item => ({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: item.name,
+                },
+                unit_amount: item.price * 100,
+            },
+            quantity: item.quantity,
+        }));
+
+        line_items.push({
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: 'Delivery fee',
+                },
+                unit_amount: deliveryCharge * 100,
+            },
+            quantity: 1,
+        });
+
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${origin}/verify?success=true&orderId=${order._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${order._id}`,
+            line_items,
+            mode: 'payment'
+        });
+
+        return res.status(200).json({sessionUrl: session.url});
 
     } catch (error) {
         res.status(500).json({message: error.message});
     }
 }
 
+// verify Stripe payment success or failure --> /api/order/verifyStripe
 export const verifyStripePayment = async (req, res) => {
-    try {
 
+    const { orderId, success, userId } = req.body;
+
+    try {
+        if (success === 'true') {
+            await OrderModel.findByIdAndUpdate(orderId, {payment: true});
+            await UserModel.findByIdAndUpdate(userId, {cartData: {}});
+
+            return res.status(200).json({message: 'Payment successful'});
+        }
+        else {
+            await OrderModel.findByIdAndDelete(orderId);
+
+            return res.status(406).json({message: 'Payment failed'});
+        }
     } catch (error) {
         res.status(500).json({message: error.message});
     }
