@@ -4,7 +4,7 @@ Welcome to **Clothify**, a modern eCommerce platform offering a wide selection o
 
 ## 🌐 Live Website
 
-You can visit the live website here: [Clothify](https://your-live-link.com)
+You can visit the live website here: [Clothify](https://clothify-skrr.onrender.com/)
 
 ## 📋 Features
 
@@ -16,7 +16,6 @@ You can visit the live website here: [Clothify](https://your-live-link.com)
     - 🔄 **Easy Exchange Policy**: Hassle-free product exchanges.
     - 🔙 **7-Day Return Policy**: Returns accepted within 7 days of purchase.
     - 🚚 **Free Shipping**: Free delivery on all orders above a set threshold.
-  - ✉️ `<NewsLetterBox />`: Lets users subscribe to get the latest news and exclusive offers.
 
 - 🔍 **Search Functionality**: Fast and responsive search to help users find products instantly.
 - 🛍️ **Product Collections**: A broad range of fashion items organized into well-structured collections.
@@ -38,11 +37,16 @@ You can visit the live website here: [Clothify](https://your-live-link.com)
   - [React](https://reactjs.org/) – JavaScript library for building the UI.
   - [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework for styling.
 
+- **Backend**:
+  - Node.js
+  - Express
+  - MongoDB
+
 - **State Management**:
   - React Hooks and Context API for handling global state efficiently.
 
 - **Deployment**:
-  - [Netlify](https://www.netlify.com/) for fast, reliable, and scalable hosting.
+  - [Vercel](https://vercel.com/) for fast, reliable, and scalable hosting.
 
 ## 🚀 Getting Started
 
@@ -54,11 +58,23 @@ You can visit the live website here: [Clothify](https://your-live-link.com)
    ```bash
    cd clothify
    ```
-3. Install dependencies:
+
+3. Start the frontend:
    ```bash
-   npm install
+   npm i
+   npm run dev
    ```
+
 4. Start the development server:
-   ```bash
-   npm start
-   ```
+    ```bash
+    cd backend
+    npm i
+    npm run dev
+    ```
+
+5. To run Admin portal:
+    ```bash
+    cd admin
+    npm i
+    npm run dev
+    ```

@@ -67,46 +67,6 @@ export const placeOrderCOD = async (req, res) => {
     }
 }
 
-// /api/order/razorpay
-export const placeOrderRazorpay = async (req, res) => {
-    try {
-        const { userId, items, amount, address } = req.body;
-
-        const orderData = {
-            userId,
-            items,
-            amount,
-            address,
-            orderStatus: 'Order Placed',
-            paymentMethod: 'Razorpay',
-            payment: false,
-            date: Date.now(),
-        }
-
-        const order = await OrderModel.create(orderData);
-
-        const options = {
-            amount: amount * 100,
-            currency: currency.toUpperCase(),
-            receipt: order._id.toString(),
-        }
-
-        await razorpayInstance.orders.create(options, (error, order) => {
-            if (error) {
-                console.log(error);
-
-                return res.status(406).json({message: error});
-            }
-            else {
-                return res.status(200).json({message: 'Payment successful', order});
-            }
-        });
-
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-}
-
 // Place order using Stripe method --> /api/order/stripe
 export const placeOrderStripe = async (req, res) => {
     try {
@@ -155,6 +115,47 @@ export const placeOrderStripe = async (req, res) => {
         });
 
         return res.status(200).json({sessionUrl: session.url});
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+}
+
+
+// /api/order/razorpay
+export const placeOrderRazorpay = async (req, res) => {
+    try {
+        const { userId, items, amount, address } = req.body;
+
+        const orderData = {
+            userId,
+            items,
+            amount,
+            address,
+            orderStatus: 'Order Placed',
+            paymentMethod: 'Razorpay',
+            payment: false,
+            date: Date.now(),
+        }
+
+        const order = await OrderModel.create(orderData);
+
+        const options = {
+            amount: amount * 100,
+            currency: currency.toUpperCase(),
+            receipt: order._id.toString(),
+        }
+
+        await razorpayInstance.orders.create(options, (error, order) => {
+            if (error) {
+                console.log(error);
+
+                return res.status(406).json({message: error});
+            }
+            else {
+                return res.status(200).json({message: 'Payment successful', order});
+            }
+        });
 
     } catch (error) {
         res.status(500).json({message: error.message});
