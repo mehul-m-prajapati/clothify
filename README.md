@@ -18,7 +18,7 @@ Welcome to **Clothify**, a modern eCommerce platform offering a wide selection o
 - **Deployment**:
   - [Vercel](https://vercel.com/) for fast, reliable, and scalable hosting.
 
-### 🚀 Steps to run on a local server
+### 🚀 Setup
 
 1. Clone the repository:
    ```bash
