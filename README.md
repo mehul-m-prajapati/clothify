@@ -2,9 +2,13 @@
 
 Welcome to **Clothify**, a modern eCommerce platform offering a wide selection of fashion products with convenient filtering options. This website is built to deliver a smooth and enjoyable shopping experience using the latest web technologies.
 
-### 🌐 Live Website
+### 🌐 Deployment
 
-You can visit the live website here: [Clothify](https://clothify-skrr.onrender.com/)
+- **Live website**: [Clothify](https://clothify-frontend-five.vercel.app)
+- **Backend**: https://clothify-nu.vercel.app
+- **Admin Panel**: https://clothify-admin-beta.vercel.app
+
+---
 
 ### 🛠️ Technologies Used
 - **Frontend**: React, Tailwind CSS
@@ -14,7 +18,7 @@ You can visit the live website here: [Clothify](https://clothify-skrr.onrender.c
 - **Deployment**:
   - [Vercel](https://vercel.com/) for fast, reliable, and scalable hosting.
 
-### 🚀 Getting Started
+### 🚀 Steps to run on a local server
 
 1. Clone the repository:
    ```bash
