@@ -1,20 +1,20 @@
-# 🛍️ Clothify
+## 🛍️ Clothify
 
 Welcome to **Clothify**, a modern eCommerce platform offering a wide selection of fashion products with convenient filtering options. This website is built to deliver a smooth and enjoyable shopping experience using the latest web technologies.
 
-## 🌐 Live Website
+### 🌐 Live Website
 
 You can visit the live website here: [Clothify](https://clothify-skrr.onrender.com/)
 
-## 🛠️ Technologies Used
-**Frontend**: React, Tailwind CSS
-**Backend**: Node.js, Express, MongoDB
-**State Management**:
+### 🛠️ Technologies Used
+- **Frontend**: React, Tailwind CSS
+- **Backend**: Node.js, Express, MongoDB
+- **State Management**:
   - React Hooks and Context API for handling global state efficiently.
-**Deployment**:
+- **Deployment**:
   - [Vercel](https://vercel.com/) for fast, reliable, and scalable hosting.
 
-## 🚀 Getting Started
+### 🚀 Getting Started
 
 1. Clone the repository:
    ```bash
