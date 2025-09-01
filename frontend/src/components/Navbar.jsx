@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
+import ThemeToggle from './ThemeToggle'
 
 function Navbar() {
 
@@ -24,26 +25,26 @@ function Navbar() {
             <img src={assets.logo_footer} alt='test' className='w-25' />
         </Link>
 
-        {/* Navbar menu for >= 640px screens - middle */}
-        <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+        {/* Navbar menu for >= 640px screens - at middle position */}
+        <ul className="hidden sm:flex gap-5 text-sm">
             <NavLink to="/" className="flex flex-col items-center gap-1">
                 <p>HOME</p>
-                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 dark:bg-gray-300 hidden" />
             </NavLink>
 
             <NavLink to="/collection" className="flex flex-col items-center gap-1">
                 <p>COLLECTION</p>
-                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 dark:bg-gray-300 hidden" />
             </NavLink>
 
             <NavLink to="/about" className="flex flex-col items-center gap-1">
                 <p>ABOUT</p>
-                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 dark:bg-gray-300 hidden" />
             </NavLink>
 
             <NavLink to="/contact" className="flex flex-col items-center gap-1">
                 <p>CONTACT</p>
-                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 dark:bg-gray-300 hidden" />
             </NavLink>
         </ul>
 
@@ -74,6 +75,8 @@ function Navbar() {
                     {getCartCount()}
                 </p>
             </Link>
+
+            <ThemeToggle />
 
             {/* side menu icon for mobile screens */}
             <img

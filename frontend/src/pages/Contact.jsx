@@ -25,21 +25,21 @@ const Contact = () => {
 
         <div className="flex flex-col justify-center items-start gap-4">
           <p className="font-semibold text-altext-gray-600">Our Store</p>
-          <p className="text-gray-500">
+          <p className="">
             B/11 Chinmay Towers
             <br />
             Vastrapur, Ahmedabad 380 012
           </p>
 
-          <p className="text-gray-800">
-            Tel: <span className="text-gray-500">+91 942 589 xxxx</span>
+          <p className="">
+            Tel: <span className="">+91 942 589 xxxx</span>
           </p>
-          <p className=" text-gray-800">
-            Email: <span className="text-gray-500">admin@clothify.com</span>
+          <p className=" ">
+            Email: <span className="">admin@clothify.com</span>
           </p>
 
-          <p className="text-gray-500">Careers at Clothify</p>
-          <p className="text-gray-500">
+          <p className="">Careers at Clothify</p>
+          <p className="">
             Learn more about our teams and job openings.
           </p>
 

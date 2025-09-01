@@ -78,7 +78,7 @@ function Product() {
             {currency}
             {productsData.price}
           </p>
-          <p className="mt-5 text-gray-500 md:w-4/5 ">
+          <p className="mt-5 md:w-4/5 ">
             {productsData.description}
           </p>
 
@@ -91,7 +91,7 @@ function Product() {
                   onClick={() => {
                     setSize(prodSize);
                   }}
-                  className={`w-8 h-8 border bg-gray-100 flex items-center justify-center
+                  className={`w-8 h-8 border bg-gray-100 dark:bg-gray-700 flex items-center justify-center
                     cursor-pointer ${prodSize === size ? 'border-green-500' : ''}`}
                 >
                   {prodSize}
@@ -109,7 +109,7 @@ function Product() {
 
           <hr className="mt-8 sm:w-4/5" />
 
-          <div className="flex flex-col gap-1 mt-5 text-sm text-gray-500">
+          <div className="flex flex-col gap-1 mt-5 text-sm ">
             <p>100% Original product </p>
             <p>Free delivery on order above $49</p>
             <p>Easy return and exchange policy within 7 days </p>
@@ -125,7 +125,7 @@ function Product() {
           <p className="px-5 py-3 text-sm border">Reviews (122)</p>
         </div>
 
-        <div className=" flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500 ">
+        <div className=" flex flex-col gap-4 border px-6 py-6 text-sm ">
           <p>
             An e-commerce website is an online platform that facilitates the
             buying and selling of products or services over the internet. It

@@ -312,7 +312,7 @@ function PlaceOrder() {
                   paymentMethod === 'cod' ? 'bg-green-400' : ''
                 }`}
               ></p>
-              <p className="text-gray-500 text-sm font-medium mx-4">
+              <p className="text-sm font-medium mx-4">
                 {' '}
                 CASH ON DELIVARY
               </p>

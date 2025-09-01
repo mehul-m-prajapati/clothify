@@ -40,7 +40,7 @@ function Verify() {
 
   return (
     <div>
-        <p className='text-gray-500'>Verifying payment...</p>
+        <p className=''>Verifying payment...</p>
     </div>
   )
 }
